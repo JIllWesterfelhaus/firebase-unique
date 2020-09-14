@@ -14,7 +14,7 @@ signInBtn.onclick = () => auth.signInWithPopup(provider);
 
 signOutBtn.onclick = () => auth.signOut();
 
-auth.onAuthStatedChanged(user => {
+auth.onAuthStateChanged(user => {
     if (user) {
         //signed in
         whenSignedIn.hidden = false;
