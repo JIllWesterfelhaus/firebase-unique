@@ -50,8 +50,31 @@ auth.onAuthStateChanged(user => {
             thingsRef.add({
                 uid: user.uid,
                 name: faker.commerce.productName(),
-                createAt: serverTimeStamp()
+                createdAt: serverTimestamp()
             });
         }
+
+        unsubscribe = thingsRef
+            .where('uid', '==', user.uid)
+            .orderBy('createdAt') // Requires a query
+            .onSnapshot(querySnapshot => {
+
+                // Map results to an array of li elements
+
+                const items = querySnapshot.docs.map(doc => {
+
+                    return `<li>${doc.data().name}</li>`
+
+                });
+
+                thingsList.innerHTML = items.join('');
+
+            });
+
+    } else {
+        // Unsubscribe when the user signs out
+        unsubscribe && unsubscribe();
+
+
     }
 });
