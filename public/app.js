@@ -24,7 +24,15 @@ auth.onAuthStateChanged(user => {
         //not signed in
         whenSignedIn.hidden = true;
         whenSignedIn.hidden = false;
-        userDetails.innerHTML = ``;
+        userDetails.innerHTML = '';
 
     }
 });
+
+const db = firebase.firestore();
+
+const createThing = documents.getElementById('createThing');
+const thingsList = document.getElementById('thingsList');
+
+let thingsRef;
+let unsubscribe;
