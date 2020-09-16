@@ -36,3 +36,22 @@ const thingsList = document.getElementById('thingsList');
 
 let thingsRef;
 let unsubscribe;
+
+auth.onAuthStateChanged(user => {
+
+    if (user) {
+
+        thingsRef = db.collection('things')
+
+        createThing.onclick = () => {
+
+            const { serverTimeStamp } = firebase.firestore.FieldValue;
+
+            thingsRef.add({
+                uid: user.uid,
+                name: faker.commerce.productName(),
+                createAt: serverTimeStamp()
+            });
+        }
+    }
+});
